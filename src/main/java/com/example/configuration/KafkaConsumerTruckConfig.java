@@ -21,10 +21,10 @@ import com.example.utils.TruckDeserializer;
 @Configuration
 public class KafkaConsumerTruckConfig {
 	
-	@Value("${kafka.bootstrap.address}")
+	@Value("${spring.kafka.consumer.bootstrap-servers}")
 	private String bootstrapAddress;
 	
-	@Value("${kafka.truck.consumer.group.id}")
+	@Value("${spring.kafka.consumer.group-id}")
 	private String truckConsumerGroupId;
 	
 	@Bean

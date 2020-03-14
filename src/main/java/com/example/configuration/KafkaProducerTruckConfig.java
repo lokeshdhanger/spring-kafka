@@ -19,7 +19,7 @@ import com.example.utils.TruckSerializer;
 public class KafkaProducerTruckConfig {
 	
 	
-	@Value("${kafka.bootstrap.address}")
+	@Value("${spring.kafka.producer.bootstrap-servers}")
 	private String bootstrapAddress;
 	
 	@Bean
