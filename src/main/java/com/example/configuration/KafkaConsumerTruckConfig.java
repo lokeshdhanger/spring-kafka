@@ -24,8 +24,8 @@ public class KafkaConsumerTruckConfig {
 	@Value("${spring.kafka.consumer.bootstrap-servers}")
 	private String bootstrapAddress;
 	
-	@Value("${spring.kafka.consumer.group-id}")
-	private String truckConsumerGroupId;
+//	@Value("${spring.kafka.consumer.group-id}")
+//	private String truckConsumerGroupId;
 	
 	@Bean
 	public Map<String, Object> consumerConfigs(){
@@ -33,15 +33,16 @@ public class KafkaConsumerTruckConfig {
 		map.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
 		map.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		map.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, TruckDeserializer.class);
-		map.put(ConsumerConfig.GROUP_ID_CONFIG, truckConsumerGroupId);
+		map.put(ConsumerConfig.GROUP_ID_CONFIG, "truck_group");
 		return map;
 	}
 	
 	@Bean
-	public ConsumerFactory<String, Object> consumerFactory(){
+	public ConsumerFactory<String, Truck> consumerFactory(){
 		return new DefaultKafkaConsumerFactory<>(consumerConfigs());
 	}
 	
+	@Bean(name = "kafkaListenerContainerFactory")
 	public ConcurrentKafkaListenerContainerFactory<String, Truck> kafkaTruckListnerFactory(){
 		ConcurrentKafkaListenerContainerFactory<String, Truck> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory());
